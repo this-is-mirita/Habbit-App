@@ -15,7 +15,7 @@ To get started with Habit-App, follow these steps:
 3. Create a new habit by entering it in the input field and clicking the "Add" button
 4. Track your progress by checking off habits as you complete them
 5. Your habit data will be saved in the localStorage under the key HABIT_KEY
-6. <img width="701" alt="Снимок экрана 2024-05-23 в 12 51 21" src="https://github.com/this-is-mirita/Habbit-App/assets/75108166/55bdca19-bd60-4711-a402-086d99ad014d">
+<img width="701" alt="Снимок экрана 2024-05-23 в 12 51 21" src="https://github.com/this-is-mirita/Habbit-App/assets/75108166/210c6cc2-6531-4134-9df0-768f5dabda67">
 
 
 ## Technologies Used
