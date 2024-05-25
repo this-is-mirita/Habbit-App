@@ -1,9 +1,7 @@
 'use strict'
-//масив для локалки
+
 let habbits = [];
-// сам ключ для масива локалки
 const HABBIT_KEY = 'HABBIT_KEY';
-// хз зачем 
 let globalActiveHabbitId;
 /* page*/
 const page = {
@@ -53,13 +51,9 @@ function rerenderMenu(activeHabbit) {
 			// включая добавление атрибутов и классов через
 			// document.createElement и setAttribute.
 			const element = document.createElement('button');
-			// получение
 			element.setAttribute('menu-habbit-id', habbit.id);
-			//добавление класса
 			element.classList.add('menu__item');
-			//клик на батон
 			element.addEventListener('click', () => rerender(habbit.id));
-			// черех innerHTML через цикл создаём елементы
 			element.innerHTML = `<img src="./images/${habbit.icon}.svg" alt="${habbit.name}" />`;
 			if (activeHabbit.id === habbit.id) {
 				element.classList.add('menu__item_active');
@@ -68,10 +62,8 @@ function rerenderMenu(activeHabbit) {
 			continue;
 		}
 		if (activeHabbit.id === habbit.id) {
-			// добавляем класс
 			existed.classList.add('menu__item_active');
 		} else {
-			// удаляем
 			existed.classList.remove('menu__item_active');
 		}
 
@@ -108,7 +100,7 @@ function validateAndGetFormData(form, fields) {
 }
 
 
-// рендер шапки h1 и progress cover bar
+// жендер шапки h1 и progress cover bar
 function rerenderHead(activeHabbit) {
 	//console.log(activeHabbit);
 	//console.log(activeHabbit);
@@ -121,7 +113,6 @@ function rerenderHead(activeHabbit) {
 	// toFixed(0) округление до целого 13.3333 = 14 
 	page.header.progressCoverBar.setAttribute('style', `width: ${progress}%`);
 }
-// ренден фул пагус контент дни по коментам + 1 
 function rerenderContent(activeHabbit) {
 	page.content.daysContainer.innerHTML = '';
 	for (const index in activeHabbit.days) {
@@ -139,7 +130,6 @@ function rerenderContent(activeHabbit) {
 // days work добавление дней на формах
 /* work with days */
 function addDays(event) {
-	// отключение перезагрузки 
 	event.preventDefault();
 	const data = validateAndGetFormData(event.target, ['comment']);
 	if (!data) {
@@ -158,7 +148,6 @@ function addDays(event) {
 	rerender(globalActiveHabbitId);
 	saveData();
 }
-// удаление дня
 function deleteDay(index) {
 	habbits = habbits.map(habbit => {
 		if (habbit.id === globalActiveHabbitId) {
@@ -174,7 +163,6 @@ function deleteDay(index) {
 	saveData();
 
 };
-// ебученее окно так и понял как работает нахуй
 function togglePopup() {
 	if (page.popup.index.classList.contains('cover_hidden')) {
 		page.popup.index.classList.remove('cover_hidden');
@@ -197,14 +185,13 @@ function togglePopup() {
 	// 	}
 	// })
 }
-// хуй знает что это по курсу надо чекнуть
 function rerender(activeHabbitId) {
 	globalActiveHabbitId = activeHabbitId;
 	const activeHabbit = habbits.find(habbit => habbit.id === activeHabbitId);
 	if (!activeHabbit) {
 		return;
 	}
-	//	document.location.replace(document.location.pathname + '#' + activeHabbitId);
+	document.location.replace(document.location.pathname + '#' + activeHabbitId);
 	rerenderMenu(activeHabbit);
 	rerenderHead(activeHabbit);
 	rerenderContent(activeHabbit);
@@ -217,7 +204,7 @@ function setIcon(context, icon) {
 	context.classList.add('icon_active');
 }
 
-// добалвние привычки чере + в чайд баре работает вроде бы 
+
 function addHabbit(event) {
 	event.preventDefault();
 	const data = validateAndGetFormData(event.target, ['name', 'icon', 'target']);
@@ -242,8 +229,11 @@ function addHabbit(event) {
 /* init */
 (() => {
 	loadData()
-
-	if (habbits.length > 0) {
-		rerender(habbits[0].id);
+	const hashId = Number(document.location.hash.replace('#', ''));
+	const urlHabbit = habbits.find(habbit => habbit.id == hashId);
+	if(urlHabbit){ 
+		rerender(urlHabbit.id);
+	}else{
+		rerender(habbits[0].id)
 	}
-})()
+})();
